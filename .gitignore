@@ -1,0 +1,41 @@
+# Arquivos de compilação e saída de compilação
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+
+# Logs e arquivos temporários
+*.log
+*.swp
+*~
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Visual Studio
+.vscode/
+.vs/
+*.suo
+*.user
+*.sln.docstates
+
+# Rider
+.idea/
+
+# Mac
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Dependências e pacotes NuGet
+packages/
+*.nupkg
+!.nuget/
+paket-files/
+
+# Arquivos de compilação Unity
+Temp/
+Library/
+Builds/
+Obj/
