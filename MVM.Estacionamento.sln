@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1706.4
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - API", "1 - API", "{3D94CDB4-CB41-45C3-9ADA-887049ED58F4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Business", "2 - Business", "{F1D23E7E-5643-446B-BC33-DABC9580F7CB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Data", "3 - Data", "{28552688-F8A3-4029-A0C9-C487F2C83D6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVM.Estacionamento.Api", "src\MVM.Estacionamento.Api\MVM.Estacionamento.Api.csproj", "{3E739E10-C605-4B0B-87F0-6B6616D2FABE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVM.Estacionamento.Business", "src\MVM.Estacionamento.Business\MVM.Estacionamento.Business.csproj", "{A8B6885C-5B1C-42D7-AB28-E8A51B6D5426}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVM.Estacionamento.Data", "src\MVM.Estacionamento.Data\MVM.Estacionamento.Data.csproj", "{160C3AD5-2873-4C0C-AC6C-60D1216DB267}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Core", "4 - Core", "{932E3252-B500-43EE-B50F-92678F75510E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVM.Estacionamento.Core", "src\MVM.Estacionamento.Core\MVM.Estacionamento.Core.csproj", "{4CCD84E3-F312-44CC-A7BD-81AE32C6B785}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVM.Estacionamento.DependencyInjection", "src\MVM.Estacionamento.DependencyInjection\MVM.Estacionamento.DependencyInjection.csproj", "{C54A3A49-3AD3-4B36-9FB0-EA5CD7571080}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3E739E10-C605-4B0B-87F0-6B6616D2FABE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E739E10-C605-4B0B-87F0-6B6616D2FABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E739E10-C605-4B0B-87F0-6B6616D2FABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E739E10-C605-4B0B-87F0-6B6616D2FABE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8B6885C-5B1C-42D7-AB28-E8A51B6D5426}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8B6885C-5B1C-42D7-AB28-E8A51B6D5426}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8B6885C-5B1C-42D7-AB28-E8A51B6D5426}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8B6885C-5B1C-42D7-AB28-E8A51B6D5426}.Release|Any CPU.Build.0 = Release|Any CPU
+		{160C3AD5-2873-4C0C-AC6C-60D1216DB267}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{160C3AD5-2873-4C0C-AC6C-60D1216DB267}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{160C3AD5-2873-4C0C-AC6C-60D1216DB267}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{160C3AD5-2873-4C0C-AC6C-60D1216DB267}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CCD84E3-F312-44CC-A7BD-81AE32C6B785}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CCD84E3-F312-44CC-A7BD-81AE32C6B785}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CCD84E3-F312-44CC-A7BD-81AE32C6B785}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CCD84E3-F312-44CC-A7BD-81AE32C6B785}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C54A3A49-3AD3-4B36-9FB0-EA5CD7571080}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C54A3A49-3AD3-4B36-9FB0-EA5CD7571080}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C54A3A49-3AD3-4B36-9FB0-EA5CD7571080}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C54A3A49-3AD3-4B36-9FB0-EA5CD7571080}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {407F0DAE-186C-440F-8E0D-065F5D0C8DB9}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3E739E10-C605-4B0B-87F0-6B6616D2FABE} = {3D94CDB4-CB41-45C3-9ADA-887049ED58F4}
+		{A8B6885C-5B1C-42D7-AB28-E8A51B6D5426} = {F1D23E7E-5643-446B-BC33-DABC9580F7CB}
+		{160C3AD5-2873-4C0C-AC6C-60D1216DB267} = {28552688-F8A3-4029-A0C9-C487F2C83D6C}
+		{4CCD84E3-F312-44CC-A7BD-81AE32C6B785} = {932E3252-B500-43EE-B50F-92678F75510E}
+		{C54A3A49-3AD3-4B36-9FB0-EA5CD7571080} = {932E3252-B500-43EE-B50F-92678F75510E}
+	EndGlobalSection
+EndGlobal
