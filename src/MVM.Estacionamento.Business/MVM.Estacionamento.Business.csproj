@@ -10,13 +10,24 @@
     <None Remove="Models\" />
     <None Remove="Enum\" />
     <None Remove="Interfaces\" />
+    <None Remove="ValueObjects\" />
+    <None Remove="Services\" />
+    <None Remove="Services\Common\" />
+    <None Remove="Validations\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Enum\" />
     <Folder Include="Interfaces\" />
+    <Folder Include="ValueObjects\" />
+    <Folder Include="Services\" />
+    <Folder Include="Services\Common\" />
+    <Folder Include="Validations\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MVM.Estacionamento.Core\MVM.Estacionamento.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.7.1" />
   </ItemGroup>
 </Project>

@@ -6,4 +6,18 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.7.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Messages\" />
+    <None Remove="Mediator\" />
+    <None Remove="Notifications\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Messages\" />
+    <Folder Include="Mediator\" />
+    <Folder Include="Notifications\" />
+  </ItemGroup>
 </Project>

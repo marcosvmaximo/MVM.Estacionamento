@@ -9,15 +9,18 @@
   <ItemGroup>
     <None Remove="Context\" />
     <None Remove="Repositories\" />
-    <None Remove="Common\" />
+    <None Remove="Repositories\Common\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Context\" />
     <Folder Include="Repositories\" />
-    <Folder Include="Common\" />
+    <Folder Include="Repositories\Common\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MVM.Estacionamento.Core\MVM.Estacionamento.Core.csproj" />
     <ProjectReference Include="..\MVM.Estacionamento.Business\MVM.Estacionamento.Business.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.12" />
   </ItemGroup>
 </Project>
