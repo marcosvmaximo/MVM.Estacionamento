@@ -12,6 +12,6 @@ public interface IRepository<TEntity> : IDisposable
     Task<TEntity?> ObterPorId(Guid id);
     Task<TEntity> Adicionar(TEntity entity);
     Task Atualizar(TEntity entity);
-    Task Remover(Guid id);
+    Task Remover(TEntity id);
 }
 

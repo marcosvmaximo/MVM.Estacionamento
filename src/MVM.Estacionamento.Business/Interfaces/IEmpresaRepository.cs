@@ -5,6 +5,6 @@ namespace MVM.Estacionamento.Business.Interfaces;
 
 public interface IEmpresaRepository : IRepository<Empresa>
 {
-    Task<Empresa> ObterEmpresaComVeiculos(Guid id);
+    Task<Empresa?> ObterEmpresaComVeiculos(Guid id);
 }
 

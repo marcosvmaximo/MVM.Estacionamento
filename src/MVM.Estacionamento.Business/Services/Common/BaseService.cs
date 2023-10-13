@@ -8,9 +8,9 @@ namespace MVM.Estacionamento.Business.Services.Common;
 
 public abstract class BaseService
 {
-    private readonly IMediatorHandler _bus;
+    private readonly INotifyBus _bus;
 
-    public BaseService(IMediatorHandler bus)
+    public BaseService(INotifyBus bus)
     {
         _bus = bus;
     }

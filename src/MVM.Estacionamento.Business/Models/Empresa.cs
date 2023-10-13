@@ -10,7 +10,6 @@ public class Empresa : Entity
 {
     public Empresa()
     {
-        ValidationResult = Validate<EmpresaValidation, Empresa>()!;
     }
 
     public string Nome { get; set; }
@@ -22,4 +21,9 @@ public class Empresa : Entity
 
     // Ef Relation
     public IEnumerable<Veiculo> Veiculos { get; set; }
+
+    public void Validar()
+    {
+        ValidationResult = Validate<EmpresaValidation, Empresa>()!;
+    }
 }

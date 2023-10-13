@@ -7,7 +7,8 @@ using MVM.Estacionamento.Data.Context;
 
 namespace MVM.Estacionamento.Data.Repositories;
 
-public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity, new()
+public class Repository<TEntity> : IRepository<TEntity>
+    where TEntity : Entity, new()
 {
     protected readonly DataContext _context;
     protected DbSet<TEntity> _dbSet;
@@ -28,7 +29,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity, 
 
     public async Task Atualizar(TEntity entity)
     {
-        _dbSet.Update(entity);
+        _context.Entry(entity).State = EntityState.Modified;
         await _context.SaveChangesAsync();
     }
 
@@ -37,12 +38,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity, 
         return await _dbSet.AsNoTracking().Where(predicate).ToListAsync();
     }
 
-    public async void Dispose()
-    {
-        await _context.DisposeAsync();
-    }
-
-    public async Task<TEntity> ObterPorId(Guid id)
+    public async Task<TEntity?> ObterPorId(Guid id)
     {
         return await _dbSet.FindAsync(id);
     }
@@ -52,14 +48,20 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity, 
         return await _dbSet.ToListAsync();
     }
 
-    public async Task Remover(Guid id)
+    public async Task Remover(TEntity entity)
     {
-        _dbSet.Remove(new TEntity { Id = id });
+        _dbSet.Remove(entity);
+        await SaveChanges();
     }
 
     public async Task<bool> SaveChanges()
     {
         return await _context.SaveChangesAsync() > 0;
+    }
+
+    public async void Dispose()
+    {
+        await _context.DisposeAsync();
     }
 }
 

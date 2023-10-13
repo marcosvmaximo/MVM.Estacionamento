@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MVM.Estacionamento.Business\MVM.Estacionamento.Business.csproj" />
-    <ProjectReference Include="..\MVM.Estacionamento.Api\MVM.Estacionamento.Api.csproj" />
     <ProjectReference Include="..\MVM.Estacionamento.Core\MVM.Estacionamento.Core.csproj" />
     <ProjectReference Include="..\MVM.Estacionamento.Data\MVM.Estacionamento.Data.csproj" />
   </ItemGroup>

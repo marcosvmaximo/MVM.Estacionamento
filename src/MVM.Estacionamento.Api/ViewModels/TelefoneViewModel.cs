@@ -13,7 +13,7 @@ public class TelefoneViewModel
     [StringLength(9, ErrorMessage = "O campo {0} deve conter {1} caracteres")]
     public string TelefoneCelular { get; set; }
 
-    [StringLength(9, ErrorMessage = "O campo {0} deve conter {1} caracteres", MinimumLength = 2)]
+    //[StringLength(9, ErrorMessage = "O campo {0} deve conter {1} caracteres", MinimumLength = 2)]
     public string TelefoneFixo { get; set; }
 }
 

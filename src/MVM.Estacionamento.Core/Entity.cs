@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using FluentValidation;
 using FluentValidation.Results;
 
@@ -12,7 +13,8 @@ public abstract class Entity
     }
 
     public Guid Id { get; set; }
-    public ValidationResult? ValidationResult { get; protected set; }
+    [NotMapped]
+    public ValidationResult ValidationResult { get; protected set; }
 
     public virtual ValidationResult? Validate<TValidate, TEntity>()
         where TValidate : AbstractValidator<TEntity>, new()

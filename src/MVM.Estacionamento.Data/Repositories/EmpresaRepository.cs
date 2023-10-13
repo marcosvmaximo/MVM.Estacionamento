@@ -12,7 +12,7 @@ public class EmpresaRepository : Repository<Empresa>, IEmpresaRepository
     {
     }
 
-    public async Task<Empresa> ObterEmpresaComVeiculos(Guid id)
+    public async Task<Empresa?> ObterEmpresaComVeiculos(Guid id)
     {
         return await _dbSet
             .Include(x => x.Veiculos)

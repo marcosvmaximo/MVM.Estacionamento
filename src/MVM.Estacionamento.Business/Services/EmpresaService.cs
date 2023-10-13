@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Net;
 using MVM.Estacionamento.Business.Interfaces;
 using MVM.Estacionamento.Business.Models;
 using MVM.Estacionamento.Business.Services.Common;
@@ -11,38 +12,40 @@ public class EmpresaService : BaseService, IEmpresaService
 {
     private readonly IEmpresaRepository _repository;
 
-    public EmpresaService(IEmpresaRepository repository, IMediatorHandler bus)
+    public EmpresaService(IEmpresaRepository repository, INotifyBus bus)
         : base(bus)
     {
         _repository = repository;
     }
 
-    public async Task<Empresa> AdicionarEmpresa(Empresa empresa)
+    public async Task AdicionarEmpresa(Empresa empresa)
     {
-        Validar(empresa);
+        if (!Validar(empresa))
+            return;
 
         var empresaExiste = await _repository.Buscar(x => x.Cnpj == empresa.Cnpj || x.Id == empresa.Id);
         if (empresaExiste.Any())
         {
             Notificar(empresa.Nome, "Empresa já existente");
-            return null;
+            return;
         }
 
-        return await _repository.Adicionar(empresa);
+        await _repository.Adicionar(empresa);
     }
 
-    public async Task<Empresa> AtualizarDadosEmpresa(Guid id, Empresa empresa)
+    public async Task AtualizarDadosEmpresa(Empresa empresa)
     {
-        Validar(empresa);
-
-        if (id != empresa.Id)
+        var empresaExiste = await _repository.Buscar(e => e.Id == empresa.Id);
+        if (!empresaExiste.Any())
         {
-            Notificar(empresa.Nome, "Id incorreto");
-            return null;
+            Notificar(HttpStatusCode.NotFound.ToString(), "");
+            return;
         }
 
+        if (!Validar(empresa))
+            return;
+
         await _repository.Atualizar(empresa);
-        return empresa;
     }
 
     public async Task DeletarEmpresa(Guid id)
@@ -50,19 +53,32 @@ public class EmpresaService : BaseService, IEmpresaService
         // Empresa não deve ser deletada se houver carros cadastrados a ela
         var empresa = await _repository.ObterEmpresaComVeiculos(id);
 
-        if (empresa == null || empresa.Veiculos.Any())
+        if (empresa == null)
         {
-            Notificar(empresa.Nome, $"A Empresa {empresa.Nome} não pode ser removida enquanto houver carros inseridos a ela");
+            Notificar(HttpStatusCode.NotFound.ToString(), "Empresa não encontrada");
             return;
         }
 
-        await _repository.Remover(id);
+        if (empresa.Veiculos.Any())
+        {
+            Notificar(empresa.Nome, $"A Empresa {empresa.Nome} não pode ser removida, pois existem carros relacionados à ela.");
+            return;
+        }
+
+        await _repository.Remover(empresa);
     }
 
-    private void Validar(Empresa empresa)
+    private bool Validar(Empresa empresa)
     {
+        empresa.Validar();
+
         if (!empresa.ValidationResult.IsValid)
+        {
             Notificar(empresa.ValidationResult);
+            return false;
+        }
+
+        return true;
     }
 }
 
