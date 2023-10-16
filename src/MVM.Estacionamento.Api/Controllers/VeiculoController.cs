@@ -47,6 +47,20 @@ public class VeiculoController : MainController
         return await CustomResponse(_mapper.Map<IEnumerable<VeiculoViewModel>>(veiculos));
     }
 
+    [HttpGet("empresa/{id:guid}/ativos")]
+    public async Task<ActionResult<IEnumerable<VeiculoViewModel>>> ObterTodosVeiculosAtivosPorEmpresa(
+        [FromRoute] Guid id)
+    {
+        var veiculos = await _repository.ObterTodosVeiculoComHorariosPorEmpresa(id);
+
+        if (veiculos == null || !veiculos.Any())
+            await Notify(HttpStatusCode.NotFound.ToString(), "");
+
+        veiculos = veiculos?.Where(v => v?.Status == true);
+
+        return await CustomResponse(_mapper.Map<IEnumerable<VeiculoViewModel>>(veiculos));
+    }
+
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<VeiculoViewModel>> ObterVeiculoPorId([FromRoute] Guid id)
     {
@@ -78,7 +92,7 @@ public class VeiculoController : MainController
         });
     }
 
-    [HttpPatch("empresa/{id:guid}/{idVeiculo:guid}")]
+    [HttpPatch("empresa/{id:guid}/registrar-saida/{idVeiculo:guid}")]
     public async Task<ActionResult> RegistrarSaidaVeiculo(
         [FromRoute] Guid id,
         [FromRoute] Guid idVeiculo)
