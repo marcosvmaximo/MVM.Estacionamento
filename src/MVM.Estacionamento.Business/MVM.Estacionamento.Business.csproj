@@ -14,6 +14,8 @@
     <None Remove="Services\" />
     <None Remove="Services\Common\" />
     <None Remove="Validations\" />
+    <None Remove="Interfaces\Empresa\" />
+    <None Remove="Interfaces\Veiculo\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -23,6 +25,8 @@
     <Folder Include="Services\" />
     <Folder Include="Services\Common\" />
     <Folder Include="Validations\" />
+    <Folder Include="Interfaces\Empresa\" />
+    <Folder Include="Interfaces\Veiculo\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MVM.Estacionamento.Core\MVM.Estacionamento.Core.csproj" />

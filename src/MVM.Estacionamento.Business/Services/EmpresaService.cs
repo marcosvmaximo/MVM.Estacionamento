@@ -67,18 +67,5 @@ public class EmpresaService : BaseService, IEmpresaService
 
         await _repository.Remover(empresa);
     }
-
-    private bool Validar(Empresa empresa)
-    {
-        empresa.Validar();
-
-        if (!empresa.ValidationResult.IsValid)
-        {
-            Notificar(empresa.ValidationResult);
-            return false;
-        }
-
-        return true;
-    }
 }
 

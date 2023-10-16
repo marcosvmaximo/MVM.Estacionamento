@@ -20,11 +20,15 @@
     <None Remove="Controllers\" />
     <None Remove="Configuration\" />
     <None Remove="ViewModels\" />
+    <None Remove="ViewModels\Empresa\" />
+    <None Remove="ViewModels\Veiculo\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Configuration\" />
     <Folder Include="ViewModels\" />
+    <Folder Include="ViewModels\Empresa\" />
+    <Folder Include="ViewModels\Veiculo\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MVM.Estacionamento.Data\MVM.Estacionamento.Data.csproj">

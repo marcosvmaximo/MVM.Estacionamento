@@ -13,5 +13,6 @@ public interface IRepository<TEntity> : IDisposable
     Task<TEntity> Adicionar(TEntity entity);
     Task Atualizar(TEntity entity);
     Task Remover(TEntity id);
+    Task<bool> SaveChanges();
 }
 

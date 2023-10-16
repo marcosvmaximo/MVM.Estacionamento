@@ -10,6 +10,7 @@ public class EmpresaViewModel
     [Key]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public Guid Id { get; set; }
+
     [Required(ErrorMessage = "O campo {0} é obrigatório")]
     [StringLength(100, ErrorMessage = "O campo {0} deve conter entre {2} e {1} caracteres", MinimumLength = 2)]
     public string Nome { get; set; }
@@ -24,8 +25,10 @@ public class EmpresaViewModel
     [Required(ErrorMessage = "O campo {0} é obrigatório")]
     public TelefoneViewModel Telefone { get; set; }
 
+    [Required(ErrorMessage = "O campo {0} é obrigatório")]
     public int? QuantidadeVagasMotos { get; set; }
 
+    [Required(ErrorMessage = "O campo {0} é obrigatório")]
     public int? QuantidadeVagasCarros { get; set; }
 }
 

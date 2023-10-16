@@ -7,8 +7,25 @@ namespace MVM.Estacionamento.Business.Models;
 
 public class Veiculo : Entity
 {
+    private List<RegistroEstacionamento> _registrosEstacionamento;
+
     public Veiculo()
     {
+        _registrosEstacionamento = new List<RegistroEstacionamento>();
+    }
+
+    public Veiculo(Guid empresaId, string marca, string modelo, string cor, string placa, DateTime ano, ETipoVeiculo tipo)
+    {
+        EmpresaId = empresaId;
+        Marca = marca;
+        Modelo = modelo;
+        Cor = cor;
+        Placa = placa;
+        Ano = ano;
+        Tipo = tipo;
+        Status = false;
+
+        _registrosEstacionamento = new List<RegistroEstacionamento>();
     }
 
     public Guid EmpresaId { get; set; }
@@ -16,13 +33,30 @@ public class Veiculo : Entity
     public string Modelo { get; set; }
     public string Cor { get; set; }
     public string Placa { get; set; }
+    public DateTime Ano { get; set; }
     public ETipoVeiculo Tipo { get; set; }
+    public bool Status { get; set; }
 
     // Ef Relation
     public Empresa Empresa { get; set; }
+    public IEnumerable<RegistroEstacionamento> RegistrosEstacionamento => _registrosEstacionamento;
 
-    public void Validar()
+    public override void Validar()
     {
-        Validate<VeiculoValidation, Veiculo>();
+        ValidationResult = Validate<VeiculoValidation, Veiculo>();
+    }
+
+    public void Ativar()
+    {
+        Status = true;
+    }
+
+    public void RegitrarEntradaEstacionamento(RegistroEstacionamento horario)
+    {
+        if (horario == null)
+            throw new ArgumentNullException();
+
+        Status = true;
+        _registrosEstacionamento.Add(horario);
     }
 }

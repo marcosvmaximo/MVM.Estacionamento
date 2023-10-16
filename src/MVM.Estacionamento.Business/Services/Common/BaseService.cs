@@ -2,8 +2,6 @@
 using FluentValidation;
 using FluentValidation.Results;
 using MVM.Estacionamento.Core;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
 namespace MVM.Estacionamento.Business.Services.Common;
 
 public abstract class BaseService
@@ -15,7 +13,20 @@ public abstract class BaseService
         _bus = bus;
     }
 
-    public virtual void Notificar(ValidationResult result)
+    protected bool Validar(Entity entity)
+    {
+        entity.Validar();
+
+        if (!entity.ValidationResult.IsValid)
+        {
+            Notificar(entity.ValidationResult);
+            return false;
+        }
+
+        return true;
+    }
+
+    protected virtual void Notificar(ValidationResult result)
     {
         foreach (ValidationFailure error in result.Errors)
         {
@@ -23,12 +34,12 @@ public abstract class BaseService
         }
     }
 
-    public virtual void Notificar(Notification notification)
+    protected virtual void Notificar(Notification notification)
     {
         _bus.PublicarNotificacao(notification);
     }
 
-    public virtual void Notificar(string key, string value)
+    protected virtual void Notificar(string key, string value)
     {
         _bus.PublicarNotificacao(new Notification(key, value));
     }

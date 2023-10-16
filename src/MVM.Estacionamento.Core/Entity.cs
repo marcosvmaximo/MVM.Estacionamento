@@ -25,5 +25,6 @@ public abstract class Entity
         return result;
     }
 
+    public abstract void Validar();
 }
 

@@ -29,8 +29,8 @@ public class Repository<TEntity> : IRepository<TEntity>
 
     public async Task Atualizar(TEntity entity)
     {
-        _context.Entry(entity).State = EntityState.Modified;
-        await _context.SaveChangesAsync();
+        _dbSet.Update(entity);
+        _context.SaveChanges();
     }
 
     public async Task<IEnumerable<TEntity>> Buscar(Expression<Func<TEntity, bool>> predicate)
@@ -56,7 +56,15 @@ public class Repository<TEntity> : IRepository<TEntity>
 
     public async Task<bool> SaveChanges()
     {
-        return await _context.SaveChangesAsync() > 0;
+        try
+        {
+            return await _context.SaveChangesAsync() > 0;
+
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
     }
 
     public async void Dispose()

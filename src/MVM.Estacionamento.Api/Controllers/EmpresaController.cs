@@ -10,7 +10,7 @@ using MVM.Estacionamento.Core;
 
 namespace MVM.Estacionamento.Api.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/empresa")]
 public class EmpresaController : MainController
 {
     private readonly IEmpresaService _service;

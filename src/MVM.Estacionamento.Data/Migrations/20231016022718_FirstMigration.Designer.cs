@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVM.Estacionamento.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231012031005_FirstMigration")]
+    [Migration("20231016022718_FirstMigration")]
     partial class FirstMigration
     {
         /// <inheritdoc />
@@ -47,30 +47,68 @@ namespace MVM.Estacionamento.Data.Migrations
                     b.ToTable("Empresas", (string)null);
                 });
 
+            modelBuilder.Entity("MVM.Estacionamento.Business.Models.RegistroEstacionamento", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<TimeOnly>("HorarioEntrada")
+                        .HasColumnType("time(6)");
+
+                    b.Property<TimeOnly>("HorarioSaida")
+                        .HasColumnType("time(6)");
+
+                    b.Property<TimeSpan>("TempoUtilizado")
+                        .HasColumnType("time(6)");
+
+                    b.Property<Guid>("VeiculoId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VeiculoId");
+
+                    b.ToTable("RegistroEstacionamento");
+                });
+
             modelBuilder.Entity("MVM.Estacionamento.Business.Models.Veiculo", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<DateTime>("Ano")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("Cor")
                         .IsRequired()
-                        .HasColumnType("varchar(20)");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<Guid>("EmpresaId")
                         .HasColumnType("char(36)");
 
                     b.Property<string>("Marca")
                         .IsRequired()
-                        .HasColumnType("varchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Modelo")
                         .IsRequired()
-                        .HasColumnType("varchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Placa")
                         .IsRequired()
-                        .HasColumnType("varchar(10)");
+                        .HasMaxLength(7)
+                        .HasColumnType("varchar(7)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int>("Tipo")
                         .HasColumnType("int");
@@ -79,7 +117,7 @@ namespace MVM.Estacionamento.Data.Migrations
 
                     b.HasIndex("EmpresaId");
 
-                    b.ToTable("Veiculos", (string)null);
+                    b.ToTable("Veiculos");
                 });
 
             modelBuilder.Entity("MVM.Estacionamento.Business.Models.Empresa", b =>
@@ -153,12 +191,23 @@ namespace MVM.Estacionamento.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("MVM.Estacionamento.Business.Models.RegistroEstacionamento", b =>
+                {
+                    b.HasOne("MVM.Estacionamento.Business.Models.Veiculo", "Veiculo")
+                        .WithMany("RegistrosEstacionamento")
+                        .HasForeignKey("VeiculoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Veiculo");
+                });
+
             modelBuilder.Entity("MVM.Estacionamento.Business.Models.Veiculo", b =>
                 {
                     b.HasOne("MVM.Estacionamento.Business.Models.Empresa", "Empresa")
                         .WithMany("Veiculos")
                         .HasForeignKey("EmpresaId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Empresa");
@@ -167,6 +216,11 @@ namespace MVM.Estacionamento.Data.Migrations
             modelBuilder.Entity("MVM.Estacionamento.Business.Models.Empresa", b =>
                 {
                     b.Navigation("Veiculos");
+                });
+
+            modelBuilder.Entity("MVM.Estacionamento.Business.Models.Veiculo", b =>
+                {
+                    b.Navigation("RegistrosEstacionamento");
                 });
 #pragma warning restore 612, 618
         }

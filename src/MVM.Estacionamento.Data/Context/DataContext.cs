@@ -32,7 +32,6 @@ public class DataContext : DbContext
                 .IsRequired()
                 .HasColumnType("varchar(14)");
 
-            // Mapeamento de propriedades de objetos de valor (Endereco e Telefone)
             e.OwnsOne(e => e.Endereco, endereco =>
             {
                 endereco.Property(end => end.Cep)
@@ -73,42 +72,64 @@ public class DataContext : DbContext
                     .HasColumnType("varchar(9)");
             });
 
-            // Relacionamento com Veiculos (assumindo que você possui um DbSet<Veiculo> no seu DbContext)
             e.HasMany(e => e.Veiculos)
                 .WithOne(v => v.Empresa)
                 .HasForeignKey(v => v.EmpresaId)
                 .OnDelete(DeleteBehavior.Cascade);
         });
 
-        modelBuilder.Entity<Veiculo>(v =>
+        modelBuilder.Entity<Veiculo>(entity =>
         {
-            v.ToTable("Veiculos");
-            v.HasKey(v => v.Id);
+            entity.HasKey(v => v.Id);
 
-            v.Property(v => v.Marca)
+            entity.Property(v => v.EmpresaId)
+                .IsRequired();
+
+            entity.Property(v => v.Marca)
                 .IsRequired()
-                .HasColumnType("varchar(50)");
+                .HasMaxLength(100);
 
-            v.Property(v => v.Modelo)
+            entity.Property(v => v.Modelo)
                 .IsRequired()
-                .HasColumnType("varchar(50)");
+                .HasMaxLength(100);
 
-            v.Property(v => v.Cor)
+            entity.Property(v => v.Cor)
                 .IsRequired()
-                .HasColumnType("varchar(20)");
+                .HasMaxLength(50);
 
-            v.Property(v => v.Placa)
+            entity.Property(v => v.Placa)
                 .IsRequired()
-                .HasColumnType("varchar(10)");
+                .HasMaxLength(7);
 
-            v.Property(v => v.Tipo)
-                .IsRequired()
-                .HasColumnType("int");
+            entity.Property(v => v.Ano)
+                .IsRequired();
 
-            v.HasOne(v => v.Empresa)
-                .WithMany(e => e.Veiculos)
-                .HasForeignKey(v => v.EmpresaId)
-                .OnDelete(DeleteBehavior.Restrict);
+            entity.Property(v => v.Tipo)
+                .IsRequired();
+
+            entity.Property(v => v.Status)
+                .IsRequired();
+
+            entity.HasMany(v => v.RegistrosEstacionamento)
+                .WithOne(h => h.Veiculo)
+                .HasForeignKey(h => h.VeiculoId);
+        });
+
+        modelBuilder.Entity<RegistroEstacionamento>(entity =>
+        {
+            entity.HasKey(h => h.Id);
+
+            entity.Property(h => h.VeiculoId)
+                .IsRequired();
+
+            entity.Property(h => h.Data)
+                .IsRequired();
+
+            entity.Property(h => h.HorarioEntrada);
+
+            entity.Property(h => h.HorarioSaida);
+
+            entity.Property(h => h.TempoUtilizado);
         });
     }
 }
