@@ -79,7 +79,7 @@ public class VeiculoController : MainController
     }
 
     [HttpPatch("empresa/{id:guid}/{idVeiculo:guid}")]
-    public async Task<ActionResult<VeiculoViewModel>> RegistrarSaidaVeiculo(
+    public async Task<ActionResult> RegistrarSaidaVeiculo(
         [FromRoute] Guid id,
         [FromRoute] Guid idVeiculo)
     {
@@ -87,6 +87,7 @@ public class VeiculoController : MainController
             return await CustomResponse(ModelState);
 
         await _service.RegistrarSaidaVeiculo(id, idVeiculo);
+
 
         return await CustomResponse();
     }
