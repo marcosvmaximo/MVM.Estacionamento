@@ -14,6 +14,7 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.23" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +23,7 @@
     <None Remove="ViewModels\" />
     <None Remove="ViewModels\Empresa\" />
     <None Remove="ViewModels\Veiculo\" />
+    <None Remove="ViewModels\Auth\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
@@ -29,6 +31,7 @@
     <Folder Include="ViewModels\" />
     <Folder Include="ViewModels\Empresa\" />
     <Folder Include="ViewModels\Veiculo\" />
+    <Folder Include="ViewModels\Auth\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MVM.Estacionamento.Data\MVM.Estacionamento.Data.csproj">

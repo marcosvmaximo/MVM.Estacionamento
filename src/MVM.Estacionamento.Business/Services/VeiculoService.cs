@@ -88,24 +88,6 @@ public class VeiculoService : BaseService, IVeiculoService
 
         await _veiculoRepository.Adicionar(veiculo);
         await _empresaRepository.Atualizar(empresa);
-        // Validar se a Empresa inserida existe
-        // Validar se Veiculo é valido
-        // Validar se empresa possui espaço no estacionamento de acordo com o tipo de veiculo
-        // Verificar se o veiculo inserido já possui cadastro na empresa selecionada
-        // Se houver
-        // Valida informaçoes do veiculo
-        // Muda veiculo para ativo novamente
-        // Cadastra novo registro de entrada
-        // Diminui estoque da Empresa
-        // Atualiza veiculo e empresa
-        // Se o veiculo não possuir cadastro então
-        // Ativar o veiculo
-        // Inseri-lo veiculo a empresa
-        // Inserir registro do horario ao veiculo
-
-        // Se for um carro que ja passou, atualizar este carro
-        // Se for um carro que é a primeira vez no estacionamento, adiciona ele
-        // O carro precisa está desativado se ele já possui cadastro e está entrando de novo
     }
 
     public async Task RegistrarSaidaVeiculo(Guid idEmpresa, Guid idVeiculo)
