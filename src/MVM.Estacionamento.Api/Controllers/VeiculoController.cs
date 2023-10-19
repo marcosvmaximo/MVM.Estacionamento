@@ -1,6 +1,8 @@
 ﻿using System.Net;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MVM.Estacionamento.Api.Configuration.Auth;
 using MVM.Estacionamento.Api.ViewModels;
 using MVM.Estacionamento.Api.ViewModels.Veiculo;
 using MVM.Estacionamento.Business.Interfaces.VeiculoContext;
@@ -9,6 +11,7 @@ using MVM.Estacionamento.Core;
 
 namespace MVM.Estacionamento.Api.Controllers;
 
+[Authorize]
 [Route("api/veiculo")]
 public class VeiculoController : MainController
 {
@@ -73,6 +76,7 @@ public class VeiculoController : MainController
     }
 
     [HttpPost("registrar-entrada")]
+    [ClaimsAuthorized("Gerente", "Criar")]
     public async Task<ActionResult> RegistrarEntradaVeiculo(
         [FromBody] VeiculoDto model)
     {
@@ -93,6 +97,7 @@ public class VeiculoController : MainController
     }
 
     [HttpPatch("empresa/{id:guid}/registrar-saida/{idVeiculo:guid}")]
+    [ClaimsAuthorized("Gerente", "Atualizar")]
     public async Task<ActionResult> RegistrarSaidaVeiculo(
         [FromRoute] Guid id,
         [FromRoute] Guid idVeiculo)

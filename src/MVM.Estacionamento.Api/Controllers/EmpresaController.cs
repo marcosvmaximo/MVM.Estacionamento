@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Net;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MVM.Estacionamento.Api.Configuration.Auth;
 using MVM.Estacionamento.Api.ViewModels;
 using MVM.Estacionamento.Business.Interfaces;
 using MVM.Estacionamento.Business.Models;
@@ -10,6 +12,7 @@ using MVM.Estacionamento.Core;
 
 namespace MVM.Estacionamento.Api.Controllers;
 
+[Authorize]
 [Route("api/empresa")]
 public class EmpresaController : MainController
 {
@@ -63,6 +66,7 @@ public class EmpresaController : MainController
     }
 
     [HttpPost]
+    [ClaimsAuthorized("Gerente", "Inserir")]
     public async Task<ActionResult> Inserir([FromBody] EmpresaViewModel empresaViewModel)
     {
         if (!ModelState.IsValid)
@@ -75,6 +79,7 @@ public class EmpresaController : MainController
     }
 
     [HttpPut]
+    [ClaimsAuthorized("Gerente", "Atualizar")]
     public async Task<ActionResult> Atualizar([FromBody] EmpresaViewModel empresaViewModel)
     {
         if (!ModelState.IsValid)
@@ -87,6 +92,7 @@ public class EmpresaController : MainController
     }
 
     [HttpDelete("{id:guid}")]
+    [ClaimsAuthorized("Gerente", "Excluir")]
     public async Task<ActionResult> Remover([FromRoute] Guid id)
     {
         await _service.DeletarEmpresa(id);
