@@ -1,7 +1,7 @@
 ﻿using System;
 namespace MVM.Estacionamento.Api.Configuration.Auth;
 
-public class JwtConfiguration
+public class JwtModel
 {
     public string Secret { get; set; }
     public int TempoExpiracaoHoras { get; set; }

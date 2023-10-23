@@ -14,7 +14,6 @@ public static class CustomAuthorization
     }
 }
 
-
 public class ClaimsAuthorizedAttribute : TypeFilterAttribute
 {
     public ClaimsAuthorizedAttribute(string nomeClaim, string valorClaim) : base(typeof(RequisitoClaimFilter))

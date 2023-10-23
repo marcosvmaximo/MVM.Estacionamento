@@ -12,7 +12,8 @@ using MVM.Estacionamento.Core;
 namespace MVM.Estacionamento.Api.Controllers;
 
 [Authorize]
-[Route("api/veiculo")]
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/veiculo")]
 public class VeiculoController : MainController
 {
     private readonly IVeiculoRepository _repository;

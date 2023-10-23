@@ -3,6 +3,7 @@ using System.Net;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using MVM.Estacionamento.Api.Controllers.Common;
 using MVM.Estacionamento.Core;
 
 namespace MVM.Estacionamento.Api.Controllers;
@@ -36,7 +37,7 @@ public class MainController : ControllerBase
 
             if (notFoundNotification != null)
             {
-                return NotFound(new
+                return NotFound(new BaseResponse
                 {
                     HttpCode = 404,
                     Sucess = true,
@@ -44,16 +45,16 @@ public class MainController : ControllerBase
                 });
             }
 
-            return BadRequest(new
+            return BadRequest(new BaseResponse
             {
                 HttpCode = 400,
                 Sucess = false,
                 Message = "Ocorreu um erro ao enviar a requisição.",
-                Errors = await _notifyBus.GetNotifications()
-            });
+                Result = _notifyBus.GetNotifications().Result.Select(x => new { Key = x.Key, Value = x.Value })
+            }); ;
         }
 
-        return Ok(new
+        return Ok(new BaseResponse
         {
             HttpCode = 200,
             Sucess = true,

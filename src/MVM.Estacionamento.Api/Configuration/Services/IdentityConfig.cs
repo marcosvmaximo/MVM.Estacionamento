@@ -8,11 +8,11 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
-namespace MVM.Estacionamento.Api.Configuration;
+namespace MVM.Estacionamento.Api.Configuration.Services;
 
-public static class ServicesIdentity
+public static class IdentityConfig
 {
-    public static IServiceCollection AddIdentityConfiguration(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddIdentityConfig(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddIdentity<IdentityUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -22,9 +22,9 @@ public static class ServicesIdentity
 
         // JWT
         var jwtConfigInfos = configuration.GetSection("JwtConfig"); // Obtenho dados do appSettings
-        services.Configure<JwtConfiguration>(jwtConfigInfos); // Converto os dados para o objeto em qualquer dependencia
+        services.Configure<JwtModel>(jwtConfigInfos); // Converto os dados para o objeto em qualquer dependencia
 
-        var jwtConfig = jwtConfigInfos.Get<JwtConfiguration>();
+        var jwtConfig = jwtConfigInfos.Get<JwtModel>();
         var key = Encoding.ASCII.GetBytes(jwtConfig?.Secret);
 
         services.AddAuthentication(x =>

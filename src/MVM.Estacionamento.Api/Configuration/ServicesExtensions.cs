@@ -1,4 +1,5 @@
 ﻿using MVM.Estacionamento.Api.Configuration;
+using MVM.Estacionamento.Api.Configuration.Services;
 using MVM.Estacionamento.Api.Controllers;
 using MVM.Estacionamento.Business.Interfaces;
 using MVM.Estacionamento.Business.Interfaces.VeiculoContext;
@@ -12,7 +13,7 @@ namespace MVM.Estacionamento.Configuration;
 
 public static class ServicesExtensions
 {
-    public static IServiceCollection AddServicesExtensions(this IServiceCollection services)
+    public static IServiceCollection AddServicesExtensions(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<DataContext>();
 
@@ -27,6 +28,14 @@ public static class ServicesExtensions
 
         services.AddScoped<INotifyBus, NotifyBus>();
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+        // Chama todos arquivos de configuração
+        services.AddLoggingConfig();
+        services.AddIdentityConfig(configuration);
+        services.AddCorsConfig();
+        services.AddVersionConfig();
+        services.AddSwaggerConfig();
+
 
         return services;
     }

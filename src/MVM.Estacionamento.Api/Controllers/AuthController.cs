@@ -13,24 +13,42 @@ using MVM.Estacionamento.Core;
 
 namespace MVM.Estacionamento.Api.Controllers;
 
-[Route("api")]
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}")]
 public class AuthController : MainController
 {
     private readonly SignInManager<IdentityUser> _signInManager;
     private readonly UserManager<IdentityUser> _userManager;
-    private readonly JwtConfiguration _jwtConfig;
+    private readonly JwtModel _jwtConfig;
 
     public AuthController(INotifyBus notifyBus,
                           IMapper mapper,
                           SignInManager<IdentityUser> signInManager,
                           UserManager<IdentityUser> userManager,
-                          IOptions<JwtConfiguration> jwtConfig) : base(notifyBus, mapper)
+                          IOptions<JwtModel> jwtConfig) : base(notifyBus, mapper)
     {
         _signInManager = signInManager;
         _userManager = userManager;
         _jwtConfig = jwtConfig.Value;
     }
 
+    /// <summary>
+    /// Registra usuário na aplicação
+    /// </summary>
+    /// <returns>Bearer Token válido</returns>
+    /// 
+    /// <remarks>
+    /// Cadastra o usuário e o autentica no sistema, retornando o bearer token
+    /// <br></br>
+    /// <br></br>
+    /// Objeto padrão das respostas: <br></br>
+    ///     "httpCode" : 200,<br></br>
+    ///     "sucess" : true,<br></br>
+    ///     "message" "Requisição enviada com sucesso.",<br></br>
+    ///     "result": {}<br></br>
+    /// </remarks>
+    /// <response code="200">Sucesso: Retorna um bearer token válido</response>
+    /// <response code="400">Falha: Se ocorreu algum problema ao registrar o usuário</response>
     [HttpPost("registrar")]
     public async Task<ActionResult> Registrar([FromBody] RegistroViewModel model)
     {
@@ -60,6 +78,23 @@ public class AuthController : MainController
         return await CustomResponse(await GerarToken(model.Email));
     }
 
+    /// <summary>
+    /// Faz login do usuário
+    /// </summary>
+    /// <returns>Bearer Token válido</returns>
+    /// 
+    /// <remarks>
+    /// Realiza a busca das credenciais inseridas e retorna o token se validado.
+    /// <br></br>
+    /// <br></br>
+    /// Objeto padrão das respostas: <br></br>
+    ///     "httpCode" : 200,<br></br>
+    ///     "sucess" : true,<br></br>
+    ///     "message" "Requisição enviada com sucesso.",<br></br>
+    ///     "result": {}<br></br>
+    /// </remarks>
+    /// <response code="200">Sucesso: Retorna um bearer token válido</response>
+    /// <response code="400">Falha: Se ocorreu algum problema ao registrar o usuário</response>
     [HttpPost("login")]
     public async Task<ActionResult> Login([FromBody] LoginViewModel model)
     {
@@ -68,13 +103,24 @@ public class AuthController : MainController
 
         var result = await _signInManager.PasswordSignInAsync(model.Email, model.Senha, false, true);
         if (!result.Succeeded)
+        {
             await Notify("Usuário ou senha incorreto");
+            return await CustomResponse();
+        }
         if (result.IsLockedOut)
+        {
             await Notify("Usuário temporariamente bloqueado devido ao número de falhas");
+            return await CustomResponse();
+        }
 
         return await CustomResponse(await GerarToken(model.Email));
     }
 
+    /// <summary>
+    /// Gera token apartir da credencial user/email
+    /// </summary>
+    /// <returns>Gera o bearer token</returns>
+    /// 
     private async Task<object> GerarToken(string email)
     {
         var user = await _userManager.FindByEmailAsync(email);
@@ -113,8 +159,8 @@ public class AuthController : MainController
             ExpiresIn = TimeSpan.FromHours(_jwtConfig.TempoExpiracaoHoras).TotalSeconds,
             User = new
             {
-                Id = user.Id,
-                Email = user.Email,
+                Id = user.Id!,
+                Email = user.Email!,
                 Claims = claims.Select(x => new { Type = x.Type, Value = x.Value })
             }
         };
