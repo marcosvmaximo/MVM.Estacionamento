@@ -30,12 +30,12 @@ public static class ServicesExtensions
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
         // Chama todos arquivos de configuração
-        services.AddLoggingConfig();
+        services.AddLoggingConfig(configuration);
         services.AddIdentityConfig(configuration);
+        services.AddHealthCheckConfig(configuration);
         services.AddCorsConfig();
         services.AddVersionConfig();
         services.AddSwaggerConfig();
-        services.AddHealthCheckConfig(configuration);
 
 
         return services;

@@ -30,6 +30,7 @@
 		<PackageReference Include="AspNetCore.HealthChecks.UI" Version="7.0.2" />
 		<PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="7.1.0" />
 		<PackageReference Include="AspNetCore.HealthChecks.MySql" Version="7.0.0" />
+		<PackageReference Include="Elmah.Io.AspNetCore.HealthChecks" Version="5.0.56" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Remove="Controllers\" />
@@ -43,6 +44,8 @@
 		<None Remove="Configuration\Auth\Jwt\" />
 		<None Remove="Configuration\Services\" />
 		<None Remove="Configuration\Middlewares\" />
+		<None Remove="Configuration\HealthChecks\" />
+		<None Remove="Configuration\Services\Models\" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Controllers\" />
@@ -57,6 +60,8 @@
 		<Folder Include="Configuration\Auth\Jwt\" />
 		<Folder Include="Configuration\Services\" />
 		<Folder Include="Configuration\Middlewares\" />
+		<Folder Include="Configuration\HealthChecks\" />
+		<Folder Include="Configuration\Services\Models\" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\MVM.Estacionamento.Data\MVM.Estacionamento.Data.csproj">

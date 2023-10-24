@@ -1,6 +1,9 @@
 ﻿using System;
+using HealthChecks.MySql;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using MVM.Estacionamento.Api.Configuration.HealthChecks;
+using MVM.Estacionamento.Api.Configuration.Services.Models;
 
 namespace MVM.Estacionamento.Api.Configuration.Services;
 
@@ -9,9 +12,17 @@ public static class HealthCheckConfig
     public static IServiceCollection AddHealthCheckConfig(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection");
+        var keysLogging = GetLoggingConfig(services, configuration);
 
         services.AddHealthChecks()
-            .AddMySql(connectionString!, name: "Banco de dados");
+            .AddCheck(name: "Empresa", new HealthCheckMySql(connectionString!))
+            .AddMySql(connectionString!, name: "Banco de dados")
+            .AddElmahIoPublisher(opt =>
+            {
+                opt.ApiKey = keysLogging!.ApiKey;
+                opt.LogId = new Guid(keysLogging.LogId);
+                opt.Application = "API Estacionamentos";
+            });
 
         services.AddHealthChecksUI(options =>
         {
@@ -22,6 +33,14 @@ public static class HealthCheckConfig
 
 
         return services;
+    }
+
+    private static LoggingConfigModel? GetLoggingConfig(IServiceCollection services, IConfiguration configuration)
+    {
+        var elmahSection = configuration.GetSection("Logging").GetSection("ElmahIo");
+        services.Configure<LoggingConfigModel>(elmahSection);
+
+        return elmahSection.Get<LoggingConfigModel>();
     }
 
     public static IApplicationBuilder UseHealthCheckConfig(this IApplicationBuilder builder)

@@ -1,14 +1,15 @@
 ﻿using System;
+using Elmah.Io.AspNetCore;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using MySqlConnector;
 
-namespace MVM.Estacionamento.Api.Configuration.Middlewares;
+namespace MVM.Estacionamento.Api.Configuration.HealthChecks;
 
-public class MySqlHealthCheck : IHealthCheck
+public class HealthCheckMySql : IHealthCheck
 {
     private readonly string _connection;
 
-    public MySqlHealthCheck(string connectionString)
+    public HealthCheckMySql(string connectionString)
     {
         _connection = connectionString;
     }
@@ -27,7 +28,7 @@ public class MySqlHealthCheck : IHealthCheck
                 var command = connection.CreateCommand();
                 command.CommandText = "SELECT count(id) FROM Empresas";
 
-                var result = (int)await command.ExecuteScalarAsync(cancellationToken) > 0 ?
+                var result = Convert.ToInt32(await command.ExecuteScalarAsync(cancellationToken)) > 0 ?
                     HealthCheckResult.Healthy() : HealthCheckResult.Unhealthy();
 
                 return result;
