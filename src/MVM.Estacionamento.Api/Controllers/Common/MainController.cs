@@ -83,5 +83,17 @@ public class MainController : ControllerBase
     {
         await _notifyBus.PublicarNotificacao(new Notification(key, message));
     }
+
+    [Route("api/error")]
+    [ApiExplorerSettings(IgnoreApi = true)]
+    public ActionResult HandleError()
+    {
+        return BadRequest(new
+        {
+            HttpCode = 500,
+            Sucess = false,
+            Message = "Falha no servidor."
+        });
+    }
 }
 

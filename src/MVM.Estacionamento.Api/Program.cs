@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
@@ -19,7 +21,6 @@ builder.Services.Configure<ApiBehaviorOptions>(opt =>
 {
     opt.SuppressModelStateInvalidFilter = true;
 });
-
 builder.Services.AddServicesExtensions(builder.Configuration);
 
 // Contexts
@@ -29,11 +30,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(opt => opt
 
 builder.Services.AddDbContext<DataContext>(opt => opt
     .UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
-
-builder.Services.AddHealthChecks()
-    .AddMySql(connectionString!, name: "Banco de dados");
-
-//builder.Services.AddHealthChecksUI();
 
 var app = builder.Build();
 
@@ -56,9 +52,10 @@ app.UseAuthorization();
 
 // Logging
 app.UseElmahIo();
+app.UseHealthCheckConfig();
 
-app.UseHealthChecks("/api/hc");
-//app.UseHealthChecksUI(opt => opt.UIPath = "/api/hc-ui");
+// Handler padrão para exceções do .net
+//app.UseExceptionHandler("/api/error");
 
 app.MapControllers();
 app.Run();

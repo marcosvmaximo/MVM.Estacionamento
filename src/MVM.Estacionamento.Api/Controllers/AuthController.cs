@@ -87,11 +87,19 @@ public class AuthController : MainController
     /// Realiza a busca das credenciais inseridas e retorna o token se validado.
     /// <br></br>
     /// <br></br>
-    /// Objeto padrão das respostas: <br></br>
-    ///     "httpCode" : 200,<br></br>
-    ///     "sucess" : true,<br></br>
-    ///     "message" "Requisição enviada com sucesso.",<br></br>
-    ///     "result": {}<br></br>
+    /// Sucesso/Falha:
+    /// 
+    ///     {
+    ///         "httpCode": 200,
+    ///         "sucess": true,
+    ///         "message": "Requisição enviada com sucesso.",
+    ///         "result": {}
+    ///     }
+    ///     {
+    ///         "httpCode": 404,
+    ///         "sucess": true,
+    ///         "message": "Não foi encontrado nenhum resultado."
+    ///     }
     /// </remarks>
     /// <response code="200">Sucesso: Retorna um bearer token válido</response>
     /// <response code="400">Falha: Se ocorreu algum problema ao registrar o usuário</response>

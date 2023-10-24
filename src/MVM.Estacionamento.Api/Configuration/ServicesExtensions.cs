@@ -35,6 +35,7 @@ public static class ServicesExtensions
         services.AddCorsConfig();
         services.AddVersionConfig();
         services.AddSwaggerConfig();
+        services.AddHealthCheckConfig(configuration);
 
 
         return services;

@@ -6,11 +6,12 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<NoWarn>$(NoWarn);1591</NoWarn>
+		<IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
 	<PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-	  <WarningLevel>4</WarningLevel>
+		<WarningLevel>4</WarningLevel>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Elmah.Io.AspNetCore" Version="5.0.56" />
@@ -25,8 +26,10 @@
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.1.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.1.0" />
 		<PackageReference Include="Elmah.Io.Extensions.Logging" Version="5.0.44" />
-		<PackageReference Include="AspNetCore.HealthChecks.MySql" Version="6.0.2" />
-		<PackageReference Include="AspNetCore.HealthChecks.UI" Version="6.0.5" />
+		<PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="7.0.0" />
+		<PackageReference Include="AspNetCore.HealthChecks.UI" Version="7.0.2" />
+		<PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="7.1.0" />
+		<PackageReference Include="AspNetCore.HealthChecks.MySql" Version="7.0.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Remove="Controllers\" />
