@@ -1,7 +1,4 @@
-﻿using System;
-using Elmah.Io.Extensions.Logging;
-using Microsoft.Extensions.DependencyInjection;
-using MVM.Estacionamento.Api.Configuration.Services.Models;
+﻿using Elmah.Io.Extensions.Logging;
 
 namespace MVM.Estacionamento.Api.Configuration.Services;
 
@@ -17,14 +14,14 @@ public static class LoggingConfig
         services.AddElmahIo(o =>
         {
             o.ApiKey = keys!.ApiKey;
-            o.LogId = new Guid(keys.LogId);
+            o.LogId = keys.LogId;
         });
         services.AddLogging(builder =>
         {
             builder.AddElmahIo(o =>
             {
                 o.ApiKey = keys!.ApiKey;
-                o.LogId = new Guid(keys.LogId);
+                o.LogId = keys.LogId;
             });
 
             builder.AddFilter<ElmahIoLoggerProvider>(null, LogLevel.Warning);

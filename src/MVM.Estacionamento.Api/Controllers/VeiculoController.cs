@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MVM.Estacionamento.Api.Configuration.Auth;
+using MVM.Estacionamento.Api.Controllers.Common;
 using MVM.Estacionamento.Api.ViewModels;
 using MVM.Estacionamento.Api.ViewModels.Veiculo;
 using MVM.Estacionamento.Business.Interfaces.VeiculoContext;
@@ -29,6 +30,7 @@ public class VeiculoController : MainController
     }
 
     [HttpGet]
+    [ProducesDefaultResponseType(typeof(BaseResponse))]
     public async Task<ActionResult<VeiculoViewModel>> ObterTodosVeiculos()
     {
         var veiculos = await _repository.ObterTodosVeiculoComHorarios();
@@ -40,6 +42,7 @@ public class VeiculoController : MainController
     }
 
     [HttpGet("empresa/{id:guid}")]
+    [ProducesDefaultResponseType(typeof(BaseResponse))]
     public async Task<ActionResult<IEnumerable<VeiculoViewModel>>> ObterTodosVeiculosPorEmpresa(
         [FromRoute] Guid id)
     {
@@ -52,6 +55,7 @@ public class VeiculoController : MainController
     }
 
     [HttpGet("empresa/{id:guid}/ativos")]
+    [ProducesDefaultResponseType(typeof(BaseResponse))]
     public async Task<ActionResult<IEnumerable<VeiculoViewModel>>> ObterTodosVeiculosAtivosPorEmpresa(
         [FromRoute] Guid id)
     {
@@ -66,6 +70,7 @@ public class VeiculoController : MainController
     }
 
     [HttpGet("{id:guid}")]
+    [ProducesDefaultResponseType(typeof(BaseResponse))]
     public async Task<ActionResult<VeiculoViewModel>> ObterVeiculoPorId([FromRoute] Guid id)
     {
         var veiculo = await _repository.ObterVeiculoComHorarios(id);
@@ -78,6 +83,7 @@ public class VeiculoController : MainController
 
     [HttpPost("registrar-entrada")]
     [ClaimsAuthorized("Gerente", "Criar")]
+    [ProducesDefaultResponseType(typeof(BaseResponse))]
     public async Task<ActionResult> RegistrarEntradaVeiculo(
         [FromBody] VeiculoDto model)
     {
@@ -99,6 +105,7 @@ public class VeiculoController : MainController
 
     [HttpPatch("empresa/{id:guid}/registrar-saida/{idVeiculo:guid}")]
     [ClaimsAuthorized("Gerente", "Atualizar")]
+    [ProducesDefaultResponseType(typeof(BaseResponse))]
     public async Task<ActionResult> RegistrarSaidaVeiculo(
         [FromRoute] Guid id,
         [FromRoute] Guid idVeiculo)

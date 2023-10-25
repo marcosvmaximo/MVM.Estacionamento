@@ -1,7 +1,7 @@
 ﻿using System;
 namespace MVM.Estacionamento.Business.ValueObjects;
 
-public class Telefone
+public record Telefone
 {
     public Telefone()
     {

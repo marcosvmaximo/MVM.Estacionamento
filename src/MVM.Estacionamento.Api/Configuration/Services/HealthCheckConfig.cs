@@ -1,9 +1,6 @@
-﻿using System;
-using HealthChecks.MySql;
-using HealthChecks.UI.Client;
+﻿using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using MVM.Estacionamento.Api.Configuration.HealthChecks;
-using MVM.Estacionamento.Api.Configuration.Services.Models;
 
 namespace MVM.Estacionamento.Api.Configuration.Services;
 
@@ -20,7 +17,7 @@ public static class HealthCheckConfig
             .AddElmahIoPublisher(opt =>
             {
                 opt.ApiKey = keysLogging!.ApiKey;
-                opt.LogId = new Guid(keysLogging.LogId);
+                opt.LogId = keysLogging.LogId;
                 opt.Application = "API Estacionamentos";
             });
 
@@ -70,3 +67,4 @@ public static class HealthCheckConfig
     }
 }
 
+public record LoggingConfigModel(string ApiKey, Guid LogId);

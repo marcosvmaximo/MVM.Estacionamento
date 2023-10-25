@@ -1,7 +1,7 @@
 ﻿using System;
 namespace MVM.Estacionamento.Business.ValueObjects;
 
-public class Endereco
+public record Endereco
 {
     public Endereco()
     {

@@ -53,13 +53,11 @@ public class EmpresaController : MainController
     ///     "message" "Requisição enviada com sucesso.",<br></br>
     ///     "result": {}<br></br>
     /// </remarks>
-    /// <response code="200">Sucesso: Retorna uma lista de Empresas</response>
-    /// <response code="400">Falha: Se ocorreu algum problema ao buscar a lista</response>
-    /// <response code="404">Não encontrado: Se a lista estiver vázia</response>
     [HttpGet]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<EmpresaViewModel>))]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(BaseResponse))]
-    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(BaseResponse))]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesDefaultResponseType(typeof(BaseResponse))]
     public async Task<ActionResult<IEnumerable<EmpresaViewModel>>> ObterTodas()
     {
         var result = await _repository.ObterTodos();
@@ -71,6 +69,10 @@ public class EmpresaController : MainController
     }
 
     [HttpGet("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesDefaultResponseType(typeof(BaseResponse))]
     public async Task<ActionResult<EmpresaViewModel>> ObterPorId([FromRoute] Guid id)
     {
         var result = await _repository.ObterPorId(id);
@@ -82,6 +84,10 @@ public class EmpresaController : MainController
     }
 
     [HttpGet("cnpj/{cnpj}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesDefaultResponseType(typeof(BaseResponse))]
     public async Task<ActionResult<EmpresaViewModel>> ObterPorCnpj(string cnpj)
     {
         if (cnpj.Length != 14 || string.IsNullOrWhiteSpace(cnpj))
@@ -96,7 +102,8 @@ public class EmpresaController : MainController
     }
 
     [HttpPost]
-    [ClaimsAuthorized("Gerente", "Inserir")]
+    [ProducesDefaultResponseType(typeof(BaseResponse))]
+    [ClaimsAuthorized("Gerente", "Criar")]
     public async Task<ActionResult> Inserir([FromBody] EmpresaViewModel empresaViewModel)
     {
         if (!ModelState.IsValid)
@@ -109,6 +116,7 @@ public class EmpresaController : MainController
     }
 
     [HttpPut]
+    [ProducesDefaultResponseType(typeof(BaseResponse))]
     [ClaimsAuthorized("Gerente", "Atualizar")]
     public async Task<ActionResult> Atualizar([FromBody] EmpresaViewModel empresaViewModel)
     {
@@ -122,6 +130,7 @@ public class EmpresaController : MainController
     }
 
     [HttpDelete("{id:guid}")]
+    [ProducesDefaultResponseType(typeof(BaseResponse))]
     [ClaimsAuthorized("Gerente", "Excluir")]
     public async Task<ActionResult> Remover([FromRoute] Guid id)
     {

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using MVM.Estacionamento.Api.Configuration.Auth;
+using MVM.Estacionamento.Api.Controllers.Common;
 using MVM.Estacionamento.Api.ViewModels.Auth;
 using MVM.Estacionamento.Core;
 
@@ -50,6 +51,7 @@ public class AuthController : MainController
     /// <response code="200">Sucesso: Retorna um bearer token válido</response>
     /// <response code="400">Falha: Se ocorreu algum problema ao registrar o usuário</response>
     [HttpPost("registrar")]
+    [ProducesDefaultResponseType(typeof(BaseResponse))]
     public async Task<ActionResult> Registrar([FromBody] RegistroViewModel model)
     {
         if (!ModelState.IsValid)
@@ -104,6 +106,7 @@ public class AuthController : MainController
     /// <response code="200">Sucesso: Retorna um bearer token válido</response>
     /// <response code="400">Falha: Se ocorreu algum problema ao registrar o usuário</response>
     [HttpPost("login")]
+    [ProducesDefaultResponseType(typeof(BaseResponse))]
     public async Task<ActionResult> Login([FromBody] LoginViewModel model)
     {
         if (!ModelState.IsValid)
