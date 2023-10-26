@@ -86,9 +86,8 @@ public static class SwaggerConfig
         builder.UseSwagger();
         builder.UseSwaggerUI(c =>
         {
-            c.SwaggerEndpoint("/swagger/api/v1/swagger.json", "API Version 1.0");
-            c.SwaggerEndpoint("/swagger/api/v2/swagger.json", "API Version 2.0");
-            c.RoutePrefix = "/api";
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Version 1.0");
+            c.SwaggerEndpoint("/swagger/v2/swagger.json", "API Version 2.0");
         });
         return builder;
     }
