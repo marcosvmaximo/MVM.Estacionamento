@@ -132,7 +132,6 @@ public class VeiculoService : BaseService, IVeiculoService
             empresa.QuantidadeVagasCarros++;
 
         // Desativar veiculo
-
         veiculo.Status = false;
 
         await _veiculoRepository.Atualizar(veiculo);

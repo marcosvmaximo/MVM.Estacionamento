@@ -83,16 +83,13 @@ public static class SwaggerConfig
 
     public static IApplicationBuilder UseSwaggerConfig(this IApplicationBuilder builder, IWebHostEnvironment env)
     {
-        if (env.IsDevelopment())
+        builder.UseSwagger();
+        builder.UseSwaggerUI(c =>
         {
-            builder.UseSwagger();
-            builder.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Version 1.0");
-                c.SwaggerEndpoint("/swagger/v2/swagger.json", "API Version 2.0");
-            });
-        }
-
+            c.SwaggerEndpoint("/swagger/api/v1/swagger.json", "API Version 1.0");
+            c.SwaggerEndpoint("/swagger/api/v2/swagger.json", "API Version 2.0");
+            c.RoutePrefix = "/api";
+        });
         return builder;
     }
 }
