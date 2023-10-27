@@ -139,7 +139,7 @@ public class DataContextFactory : IDesignTimeDbContextFactory<DataContext>
     public DataContext CreateDbContext(string[] args)
     {
         var optionsBuilder = new DbContextOptionsBuilder<DataContext>();
-        var conectString = "Server=localhost;Port=3307;Database=meu-mysql;Uid=root;Pwd=8837;";
+        var conectString = "Server=mvmmysqlestacionamento.mysql.database.azure.com;UserID=marcosvmaximo;Password=Ma88378621@;Database=mvm_estacionamento;";
 
         optionsBuilder.UseMySql(conectString, ServerVersion.AutoDetect(conectString));
 
